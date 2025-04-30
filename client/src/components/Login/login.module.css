@@ -1,0 +1,90 @@
+.loginBox {
+    background-color: #232323;
+    padding: 20px;
+    border-radius: 8px;
+    width: 300px; /* Fixed width */
+    height: 400px; /* Fixed height to match Register */
+    margin: 0 auto;
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Center content vertically */
+    align-items: center; /* Center content horizontally */
+}
+
+.title {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.field {
+    display: flex; /* Use flexbox to align label and input on the same line */
+    align-items: center; /* Vertically center label and input */
+    margin-bottom: 15px;
+    width: 100%; /* Ensures the field spans the full width of the box */
+    box-sizing: border-box; /* Ensures padding is included in width calculations */
+}
+
+.field label {
+    font-size: 14px;
+    margin-right: 10px; /* Adds spacing between label and input */
+    white-space: nowrap; /* Prevents label text from wrapping */
+    width: 100px; /* Ensures all labels have the same fixed width */
+    text-align: right; /* Aligns label text to the right */
+}
+
+.field input {
+    flex: 1; /* Makes the input take up the remaining space */
+    padding: 8px;
+    border: 1px solid #555;
+    border-radius: 4px;
+    background-color: #333;
+    color: white;
+    font-size: 14px;
+    box-sizing: border-box; /* Ensures padding is included in width calculations */
+}
+
+.field input:focus {
+    outline: none;
+    border-color: #8FFF8B;
+}
+
+.error {
+    color: red;
+    font-size: 12px;
+    margin-top: -10px;
+    margin-bottom: 10px;
+}
+
+.submitButton {
+    width: 100%; /* Matches the width of the input fields */
+    padding: 10px;
+    background-color: white;
+    border: none;
+    border-radius: 4px;
+    color: black;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: center;
+}
+
+.submitButton:hover {
+    background-color: #f0f0f0;
+}
+
+.registerLink {
+    display: block;
+    text-align: center;
+    margin-top: 10px;
+    font-size: 14px;
+    color: #9E8FFA;
+    text-decoration: none;
+}
+
+.registerLink:hover {
+    text-decoration: underline;
+}

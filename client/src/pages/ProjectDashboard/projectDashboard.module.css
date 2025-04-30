@@ -1,0 +1,63 @@
+.container {
+    position: relative;
+    padding: 20px;
+    margin-top: 60px;
+    text-align: left;
+}
+
+.projectsList {
+    margin-bottom: 20px; /* Add spacing below the projects list */
+}
+
+.heading {
+    font-size: 1.5rem;
+    color: #ffffff;
+    margin-bottom: 10px;
+}
+
+.projectItem {
+    background-color: #333333;
+    color: #ffffff;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.projectItem:hover {
+    background-color: #444444;
+}
+
+.projectName {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.createContainer {
+    background-color: #232323;
+    color: #ffffff;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.3s ease;
+    margin-bottom: 20px;
+}
+
+.createContainer:hover {
+    background-color: #ffffff;
+    color: #000000;
+}
+
+.projectFormContainer {
+    margin-top: 20px;
+}
+
+.loading {
+    text-align: center;
+    font-size: 1.5rem;
+    color: #ffffff;
+    margin-top: 50px;
+}

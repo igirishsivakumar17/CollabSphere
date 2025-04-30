@@ -1,0 +1,145 @@
+.welcomeMessage {
+    font-size: 1.5rem;
+    color: #ffffff; /* White color for "Welcome" */
+    margin: 0; /* Remove any default margin */
+    padding: 20px; /* Add padding to create space below the Navbar */
+    text-align: left; /* Align text to the left */
+    position: absolute; /* Position it relative to the viewport */
+    top: 80px; /* Adjust this value to match the height of your Navbar */
+    left: 20px; /* Add some spacing from the left edge */
+}
+.username {
+    color: #f47fff; /* Pink color for the username */
+    font-weight: bold;
+}
+.boxContainer {
+    display: flex; /* Arrange boxes in a row */
+    justify-content: center; /* Center the boxes horizontally */
+    align-items: flex-start; /* Align boxes to the top of the container */
+    position: absolute; /* Position relative to the viewport */
+    top: 140px; /* Move the boxContainer closer to the welcomeMessage */
+    left: 0; /* Reset left alignment */
+    right: 0; /* Reset right alignment */
+    padding: 0; /* Remove extra padding */
+    margin: 0 auto; /* Center the container horizontally */
+    gap: 20px; /* Add consistent spacing between the boxes */
+}
+.box {
+    background-color: #232323; /* Dark background color */
+    color: #ffffff; /* White text color */
+    width: 200px; /* Fixed width for the boxes */
+    height: 200px; /* Fixed height for the boxes */
+    display: flex; /* Center the text inside the box */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    font-size: 1.2rem; /* Font size for the text */
+    border-radius: 8px; /* Optional: Add rounded corners */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional: Add a subtle shadow */
+    text-align: center; /* Ensure text is centered */
+}
+.box:last-child {
+    margin-right: 0; /* Remove margin for the last box */
+}
+
+.searchContainer {
+    position: absolute; /* Position the search container absolutely */
+    top: 380px; /* Move it further down to appear below the box container */
+    left: 20px; /* Add spacing from the left edge */
+    display: flex;
+    align-items: center;
+    margin: 0; /* Remove any default margin */
+    padding: 0 20px;
+}
+
+.searchLabel {
+    font-size: 1rem;
+    color: #ffffff;
+    margin-right: 10px;
+}
+
+.searchInput {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #555;
+    border-radius: 4px;
+    background-color: #333;
+    color: white;
+    font-size: 14px;
+}
+
+.searchInput:focus {
+    outline: none;
+    border-color: #8FFF8B;
+}
+
+.searchButton {
+    padding: 10px 15px;
+    margin-left: 10px;
+    background-color: #8FFF8B;
+    border: none;
+    border-radius: 4px;
+    color: black;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.searchButton:hover {
+    background-color: #6fd96f;
+}
+
+.searchResults {
+    position: absolute; /* Position the search results absolutely */
+    top: 440px; /* Place it below the search container */
+    left: 20px; /* Align it with the search container */
+    right: 20px; /* Add spacing from the right edge */
+    margin: 0; /* Remove any default margin */
+    padding: 0 20px; /* Add padding for consistent spacing */
+}
+
+.resultsGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Three columns */
+    gap: 20px; /* Spacing between grid items */
+    margin-top: 20px;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.paginationButton {
+    padding: 10px 15px;
+    margin: 0 10px;
+    background-color: #8FFF8B;
+    border: none;
+    border-radius: 4px;
+    color: black;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.paginationButton:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.pageInfo {
+    font-size: 14px;
+    color: #ffffff;
+}
+
+.loading {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #ffffff;
+}
+
+.noResults {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #ffffff;
+    margin-top: 20px;
+}

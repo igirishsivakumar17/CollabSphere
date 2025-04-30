@@ -1,0 +1,38 @@
+.navbar {
+    background-color: #5E5B5B;
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Space between title and links */
+    padding: 10px 20px; /* Padding inside the navbar */
+    position: fixed; /* Ensures the navbar stays at the top */
+    top: 0; /* Positions it at the top of the viewport */
+    left: 0; /* Aligns it to the left edge */
+    width: 100%; /* Makes it span the full width of the screen */
+    z-index: 1000; /* Ensures it stays above other elements */
+    box-sizing: border-box; /* Ensures padding is included in width calculation */
+}
+
+.navbar-title {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600; /* Semibold */
+    color: #8FFF8B;
+    font-size: 20px;
+}
+
+.navbar-links {
+    display: flex;
+    gap: 20px; /* Adds spacing between the links */
+}
+
+.navbar-link {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400; /* Regular weight */
+    color: white;
+    font-size: 16px;
+    text-decoration: none; /* Removes underline from links */
+    cursor: pointer;
+}
+
+.navbar-link:hover {
+    text-decoration: underline; /* Adds underline on hover */
+}

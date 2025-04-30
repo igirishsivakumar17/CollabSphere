@@ -1,0 +1,203 @@
+.container {
+    padding: 20px;
+    margin-top: 80px;
+    text-align: left;
+}
+
+.title {
+    font-size: 2rem;
+    color: #ffffff;
+    margin-bottom: 20px;
+}
+
+.description {
+    font-size: 1.2rem;
+    color: #ffffff;
+    margin-bottom: 20px;
+}
+
+.details {
+    margin-bottom: 20px;
+}
+
+.label {
+    font-weight: bold;
+    color: #ffffff;
+}
+
+.value {
+    color: #f47fff; /* Pink color for project-specific details */
+}
+
+.requirementsTitle {
+    font-size: 1.5rem;
+    color: #ffffff;
+    margin-bottom: 10px;
+}
+
+.requirementsTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.requirementsTable th,
+.requirementsTable td {
+    padding: 10px;
+    text-align: left;
+    color: #ffffff;
+}
+
+.requirementsTable th {
+    background-color: #333333; /* Darker background for header */
+}
+
+.requirementsTable tr:nth-child(even) {
+    background-color: #454545; /* Alternating row color */
+}
+
+.requirementsTable tr:nth-child(odd) {
+    background-color: #606060; /* Alternating row color */
+}
+
+.loading {
+    text-align: center;
+    font-size: 1.5rem;
+    color: #ffffff;
+    margin-top: 50px;
+}
+
+.error {
+    text-align: center;
+    font-size: 1.5rem;
+    color: red;
+    margin-top: 50px;
+}
+
+.interestButton {
+    padding: 5px 10px;
+    background-color: #8fff8b;
+    border: none;
+    border-radius: 4px;
+    color: black;
+    cursor: pointer;
+}
+
+.interestButton:hover {
+    background-color: #6fd96f;
+}
+
+.appliedButton {
+    padding: 5px 10px;
+    background-color: #f47fff;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    cursor: not-allowed;
+}
+
+.disabledButton {
+    padding: 5px 10px;
+    background-color: #ccc;
+    border: none;
+    border-radius: 4px;
+    color: black;
+    cursor: not-allowed;
+}
+
+.discussion {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #232323;
+    border-radius: 8px;
+    color: white;
+}
+
+.discussion h3 {
+    font-size: 1.2rem;
+    color: #8fff8b;
+}
+
+.discussion p {
+    font-size: 1rem;
+    margin-bottom: 10px;
+}
+
+.discussion button {
+    background-color: #333333;
+    border: none;
+    border-radius: 4px;
+    padding: 5px 10px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.discussion button:hover {
+    background-color: black;
+}
+
+.comment {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #333333;
+    border-radius: 4px;
+    color: white;
+}
+
+/* Upvote button */
+.upvoteButton {
+    padding: 5px 10px;
+    border: 1px solid white; /* White border */
+    background-color: black; /* Black background */
+    color: white; /* White text */
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: 10px;
+    font-size: 0.9rem;
+}
+
+.upvoteButton:hover {
+    background-color: #333; /* Slightly lighter black on hover */
+}
+
+.upvoteButton:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+/* New discussion layout */
+.newDiscussionRow {
+    margin-bottom: 15px;
+}
+
+.inputField {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+.textArea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+    resize: vertical;
+    min-height: 100px;
+}
+
+.startDiscussionButton {
+    padding: 10px 20px;
+    border: 1px solid white;
+    background-color: black;
+    color: white;
+    font-size: 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.startDiscussionButton:hover {
+    background-color: #333;
+}
