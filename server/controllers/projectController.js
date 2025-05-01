@@ -263,11 +263,13 @@ exports.getSuggestedProjects = async (req, res) => {
             ...doc.data(),
         }));
 
-        // Filter projects based on matching skills in the requirements
-        const suggestedProjects = projects.filter((project) =>
-            project.requirements.some((req) =>
-                skillArray.includes(req.skill.toLowerCase())
-            )
+        // Filter projects based on matching skills in the requirements and exclude projects created by the user
+        const suggestedProjects = projects.filter(
+            (project) =>
+                project.username !== username && // Exclude projects created by the user
+                project.requirements.some((req) =>
+                    skillArray.includes(req.skill.toLowerCase())
+                )
         );
 
         res.status(200).json(suggestedProjects);

@@ -17,6 +17,7 @@ const index = () => {
         githubUrl: '',
     });
 
+    const [badges, setBadges] = useState([]); // State to store badges
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -45,6 +46,10 @@ const index = () => {
                     linkedinUrl: userData.linkedinUrl || '',
                     githubUrl: userData.githubUrl || '',
                 });
+
+                // Set badges
+                setBadges(userData.badges || []);
+
                 setLoading(false);
             } catch (error) {
                 console.error('Error fetching user data:', error);
@@ -226,6 +231,22 @@ const index = () => {
                         Update Profile
                     </button>
                 </form>
+
+                {/* Badges Section */}
+                <div className={styles.badgesContainer}>
+                    <h2 className={styles.badgesHeader}>Your Badges</h2>
+                    <div className={styles.badgesGrid}>
+                        {badges.length > 0 ? (
+                            badges.map((badge, index) => (
+                                <div key={index} className={styles.badge}>
+                                    {badge}
+                                </div>
+                            ))
+                        ) : (
+                            <p>No badges earned yet.</p>
+                        )}
+                    </div>
+                </div>
             </div>
         </>
     );

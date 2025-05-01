@@ -15,7 +15,14 @@ exports.getUserProfile = async (req, res) => {
         }
 
         const userData = userSnapshot.docs[0].data();
-        res.status(200).json(userData);
+
+        // Ensure badges are included in the response, defaulting to an empty array if not present
+        const response = {
+            ...userData,
+            badges: userData.badges || [], // Include badges in the response
+        };
+
+        res.status(200).json(response);
     } catch (error) {
         console.error('Error fetching user profile:', error);
         res.status(500).json({ error: 'Internal server error' });

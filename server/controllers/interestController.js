@@ -29,7 +29,27 @@ exports.sendInterest = async (req, res) => {
             createdAt: new Date().toISOString(),
         });
 
-        res.status(200).json({ message: 'Interest sent successfully.' });
+        // Check if the user already has the "Explorer" badge
+        // const userRef = db.collection('users').doc(username);
+        const userSnapshot = await db.collection('users').where('username', '==', username).get();
+        // const userDoc = await userRef.get();
+        const userDoc = userSnapshot.docs[0];
+
+        if (!userDoc.exists) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        const userData = userDoc.data();
+        const badges = userData.badges || [];
+
+        if (!badges.includes('Explorer')) {
+            // Add the "Explorer" badge
+            badges.push('Explorer');
+            await db.collection('users').doc(userDoc.id).update({ badges });
+            // await userRef.update({ badges });
+        }
+
+        res.status(200).json({ message: 'Interest sent successfully and badge updated if applicable.' });
     } catch (error) {
         console.error('Error sending interest:', error);
         res.status(500).json({ error: 'Internal server error' });

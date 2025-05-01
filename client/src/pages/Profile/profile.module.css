@@ -72,3 +72,33 @@ input:focus {
 .submitButton:hover {
     background-color: #6fd96f;
 }
+
+.badgesContainer {
+    margin-top: 30px;
+    padding: 20px;
+    background-color: #232323;
+    border-radius: 8px;
+    color: white;
+}
+
+.badgesHeader {
+    font-size: 1.5rem;
+    color: #8FFF8B;
+    margin-bottom: 20px;
+}
+
+.badgesGrid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.badge {
+    background-color: #8FFF8B;
+    color: #232323;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    text-align: center;
+}
