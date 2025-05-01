@@ -230,3 +230,49 @@ exports.getProjectByName = async (req, res) => {
         res.status(500).json({ error: 'Internal server error' });
     }
 };
+
+exports.getSuggestedProjects = async (req, res) => {
+    const { username } = req.query;
+
+    if (!username) {
+        return res.status(400).json({ error: 'Username is required' });
+    }
+
+    try {
+        // Fetch the user's skills
+        const userSnapshot = await db.collection('users').where('username', '==', username).get();
+
+        if (userSnapshot.empty) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        const userData = userSnapshot.docs[0].data();
+        const skills = userData.skills || '';
+
+        if (!skills.trim()) {
+            return res.status(400).json({ error: 'No skills found for the user' });
+        }
+
+        // Split the skills into an array
+        const skillArray = skills.split(',').map((skill) => skill.trim().toLowerCase());
+
+        // Fetch projects where the skills match the requirements
+        const projectsSnapshot = await db.collection('projects').get();
+        const projects = projectsSnapshot.docs.map((doc) => ({
+            id: doc.id,
+            ...doc.data(),
+        }));
+
+        // Filter projects based on matching skills in the requirements
+        const suggestedProjects = projects.filter((project) =>
+            project.requirements.some((req) =>
+                skillArray.includes(req.skill.toLowerCase())
+            )
+        );
+
+        res.status(200).json(suggestedProjects);
+    } catch (error) {
+        console.error('Error fetching suggested projects:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+};

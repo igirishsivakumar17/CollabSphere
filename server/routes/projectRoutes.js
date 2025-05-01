@@ -1,5 +1,5 @@
 const express = require('express');
-const { createOrUpdateProject, getProjectsByUsername, checkProjectName, searchProjects, getProjectByName } = require('../controllers/projectController');
+const { createOrUpdateProject, getProjectsByUsername, checkProjectName, searchProjects, getProjectByName, getSuggestedProjects } = require('../controllers/projectController');
 
 const router = express.Router();
 
@@ -14,6 +14,9 @@ router.get('/check-name', checkProjectName);
 
 // Route to search projects
 router.get('/search', searchProjects);
+
+// Route to fetch suggested projects based on user skills
+router.get('/suggestions', getSuggestedProjects);
 
 // Route to fetch project by name
 router.get('/:name', getProjectByName);

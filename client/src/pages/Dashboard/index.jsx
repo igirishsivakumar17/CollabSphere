@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './dashboard.module.css';
 import { Navbar, Project } from '../../components';
 import { useNavigate } from 'react-router-dom';
@@ -11,6 +11,7 @@ const index = () => {
     const [searchResults, setSearchResults] = useState([]); // State to store search results
     const [loading, setLoading] = useState(false); // State to track loading status
     const [currentPage, setCurrentPage] = useState(1); // State to track the current page
+    const [suggestedProjects, setSuggestedProjects] = useState([]); // State to store suggested projects
     const resultsPerPage = 6; // Number of results per page
 
     const handleSearch = async () => {
@@ -34,6 +35,22 @@ const index = () => {
             setLoading(false); // Stop loading after the fetch is complete
         }
     };
+
+    const fetchSuggestedProjects = async () => {
+        try {
+            const response = await axios.get('/api/projects/suggestions', {
+                params: { username }, // Send the username as a query parameter
+            });
+            setSuggestedProjects(response.data); // Set the fetched suggested projects
+        } catch (error) {
+            console.error('Error fetching suggested projects:', error);
+            // alert('Failed to fetch suggested projects.');
+        }
+    };
+
+    useEffect(() => {
+        fetchSuggestedProjects();
+    }, []);
 
     // Pagination logic
     const indexOfLastResult = currentPage * resultsPerPage;
@@ -139,6 +156,27 @@ const index = () => {
                 ) : (
                     <div className={styles.noResults}>No projects found.</div>
                 )}
+            </div>
+
+            {/* Suggested Projects Section */}
+            <div className={styles.suggestedProjects}>
+                <h2 className={styles.suggestedHeader}>
+                    Suggested Project Picks Exclusively for {username}
+                </h2>
+                <div className={styles.projectsContainer}>
+                    {suggestedProjects.length > 0 ? (
+                        suggestedProjects.map((project) => (
+                            <Project
+                                key={project.id}
+                                projectName={project.name}
+                                skills={(project.requirements || []).map((req) => req.skill)}
+                                expertise={project.expertise}
+                            />
+                        ))
+                    ) : (
+                        <p>No suggested projects found.</p>
+                    )}
+                </div>
             </div>
         </>
     );

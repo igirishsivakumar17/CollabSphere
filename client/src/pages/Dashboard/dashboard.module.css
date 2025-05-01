@@ -143,3 +143,24 @@
     color: #ffffff;
     margin-top: 20px;
 }
+
+/* Suggested Projects Section */
+.suggestedProjects {
+    margin-top: 1000px; /* Add more spacing to push it further down */
+    padding: 20px;
+    background-color: #232323; /* Optional: Add a background color for distinction */
+    border-radius: 8px; /* Optional: Add rounded corners */
+}
+
+.suggestedHeader {
+    font-size: 1.5rem;
+    color: #ffffff;
+    margin-bottom: 20px;
+}
+
+.projectsContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
