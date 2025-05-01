@@ -320,8 +320,8 @@ const ProjectForm = ({ projectData = null, onSubmit }) => {
                     name="collaborators"
                     value={formData.collaborators}
                     onChange={handleChange}
-                    placeholder="Enter collaborators"
-                    required
+                    placeholder="Collaborators will be updated automatically"
+                    disabled // Disable the field
                 />
             </div>
 

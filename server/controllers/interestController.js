@@ -119,7 +119,7 @@ exports.updateInterestStatus = async (req, res) => {
         }
 
         const interestData = interestDoc.data();
-        const { projectName, skill } = interestData;
+        const { projectName, skill, username } = interestData;
 
         if (status === 'accepted') {
             const projectSnapshot = await db
@@ -134,6 +134,14 @@ exports.updateInterestStatus = async (req, res) => {
             const projectDoc = projectSnapshot.docs[0];
             const projectData = projectDoc.data();
 
+            // Update the collaborators field
+            let collaborators = projectData.collaborators || '';
+            if (!collaborators.includes(username)) {
+                collaborators = collaborators
+                    ? `${collaborators},${username}` // Append with a comma if collaborators exist
+                    : username; // Add the first collaborator without a comma
+            }
+
             const updatedRequirements = projectData.requirements.map((requirement) => {
                 if (requirement.skill === skill) {
                     return {
@@ -146,6 +154,7 @@ exports.updateInterestStatus = async (req, res) => {
 
             await db.collection('projects').doc(projectDoc.id).update({
                 requirements: updatedRequirements,
+                collaborators, // Update the collaborators field
             });
         }
 
