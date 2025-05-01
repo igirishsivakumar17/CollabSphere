@@ -4,8 +4,7 @@ import './index.css'
 import App from './App.jsx'
 import axios from 'axios';
 
-// axios.defaults.baseURL = 'http://localhost:5050'; // Replace with your server's URL
-axios.defaults.baseURL = '/api';
+axios.defaults.baseURL = 'http://localhost:5050'; // Replace with your server's URL
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>

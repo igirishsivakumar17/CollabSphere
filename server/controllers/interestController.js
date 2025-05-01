@@ -92,6 +92,43 @@ exports.updateInterestStatus = async (req, res) => {
 
     try {
         const interestRef = db.collection('interests').doc(interestId);
+        const interestDoc = await interestRef.get();
+
+        if (!interestDoc.exists) {
+            return res.status(404).json({ error: 'Interest not found' });
+        }
+
+        const interestData = interestDoc.data();
+        const { projectName, skill } = interestData;
+
+        if (status === 'accepted') {
+            const projectSnapshot = await db
+                .collection('projects')
+                .where('name', '==', projectName)
+                .get();
+
+            if (projectSnapshot.empty) {
+                return res.status(404).json({ error: 'Project not found' });
+            }
+
+            const projectDoc = projectSnapshot.docs[0];
+            const projectData = projectDoc.data();
+
+            const updatedRequirements = projectData.requirements.map((requirement) => {
+                if (requirement.skill === skill) {
+                    return {
+                        ...requirement,
+                        currentlyFilled: requirement.currentlyFilled + 1,
+                    };
+                }
+                return requirement;
+            });
+
+            await db.collection('projects').doc(projectDoc.id).update({
+                requirements: updatedRequirements,
+            });
+        }
+
         await interestRef.update({ status });
 
         res.status(200).json({ message: 'Interest status updated successfully.' });

@@ -158,3 +158,101 @@ textarea {
     padding: 5px 10px;
     cursor: pointer;
 }
+
+.discussionsSection {
+    margin-top: 30px;
+    padding: 15px;
+    background-color: #232323;
+    border-radius: 8px;
+    color: white;
+}
+
+.discussionsSection h3 {
+    font-size: 1.5rem;
+    color: #ffffff;
+    margin-bottom: 10px;
+}
+
+.discussion {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #333333;
+    border-radius: 8px;
+    color: white;
+}
+
+.discussion h4 {
+    font-size: 1.2rem;
+    color: #8FFF8B;
+}
+
+.discussion p {
+    font-size: 1rem;
+    margin-bottom: 10px;
+}
+
+.discussion button {
+    background-color: #444444;
+    border: none;
+    border-radius: 4px;
+    padding: 5px 10px;
+    cursor: pointer;
+    margin-right: 10px;
+    color: white;
+}
+
+.discussion button:hover {
+    background-color: black;
+}
+
+.comment {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #444444;
+    border-radius: 4px;
+    color: white;
+}
+
+/* Upvote Button */
+.upvoteButton {
+    padding: 5px 10px;
+    border: 1px solid white;
+    background-color: black;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: 10px;
+    font-size: 0.9rem;
+}
+
+.upvoteButton:hover {
+    background-color: #333;
+}
+
+.upvoteButton:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+/* New Discussion Layout */
+.inputField {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+    background-color: #1E1E1E;
+    color: white;
+}
+
+.textArea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+    resize: vertical;
+    min-height: 100px;
+    background-color: #1E1E1E;
+    color: white;
+}

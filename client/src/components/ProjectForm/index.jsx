@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styles from './projectForm.module.css';
 import axios from 'axios';
+import { FaArrowUp } from 'react-icons/fa';
 
 const ProjectForm = ({ projectData = null, onSubmit }) => {
     const [formData, setFormData] = useState({
@@ -14,7 +15,9 @@ const ProjectForm = ({ projectData = null, onSubmit }) => {
     });
 
     const [requirements, setRequirements] = useState([]);
-    const [interests, setInterests] = useState([]); // State to store interests
+    const [interests, setInterests] = useState([]);
+    const [discussions, setDiscussions] = useState([]);
+    const [newDiscussion, setNewDiscussion] = useState({ title: '', content: '' });
 
     useEffect(() => {
         if (projectData) {
@@ -28,9 +31,8 @@ const ProjectForm = ({ projectData = null, onSubmit }) => {
                 collaborators: projectData.collaborators || '',
             });
             setRequirements(projectData.requirements || []);
-
-            // Fetch interests for the project
             fetchInterests(projectData.name);
+            fetchDiscussions(projectData.name);
         } else {
             setFormData({
                 name: '',
@@ -47,12 +49,124 @@ const ProjectForm = ({ projectData = null, onSubmit }) => {
 
     const fetchInterests = async (projectName) => {
         try {
-            const response = await axios.get('/api/interests/project', {
-                params: { projectName },
-            });
+            const response = await axios.get('/api/interests/project', { params: { projectName } });
             setInterests(response.data);
         } catch (error) {
             console.error('Error fetching interests:', error);
+        }
+    };
+
+    const fetchDiscussions = async (projectName) => {
+        try {
+            const response = await axios.get('/api/discussions/project', { params: { projectName } });
+            setDiscussions(response.data);
+        } catch (error) {
+            console.error('Error fetching discussions:', error);
+        }
+    };
+
+    const handleCreateDiscussion = async () => {
+        if (!newDiscussion.title || !newDiscussion.content) {
+            alert('Title and content are required.');
+            return;
+        }
+
+        try {
+            const response = await axios.post('/api/discussions/create', {
+                projectName: projectData.name,
+                title: newDiscussion.title,
+                content: newDiscussion.content,
+            });
+            alert(response.data.message);
+            setDiscussions([...discussions, { ...newDiscussion, upvotes: 0, comments: [], upvotedBy: [] }]);
+            setNewDiscussion({ title: '', content: '' });
+        } catch (error) {
+            console.error('Error creating discussion:', error);
+            alert('Failed to create discussion.');
+        }
+    };
+
+    const handleToggleUpvoteDiscussion = async (discussionId) => {
+        try {
+            const username = sessionStorage.getItem('username');
+            await axios.post('/api/discussions/upvote', { discussionId, username });
+            setDiscussions((prev) =>
+                prev.map((d) =>
+                    d.id === discussionId
+                        ? {
+                              ...d,
+                              upvotes: d.upvotedBy?.includes(username)
+                                  ? d.upvotes - 1
+                                  : d.upvotes + 1,
+                              upvotedBy: d.upvotedBy?.includes(username)
+                                  ? d.upvotedBy.filter((user) => user !== username)
+                                  : [...(d.upvotedBy || []), username],
+                          }
+                        : d
+                )
+            );
+        } catch (error) {
+            console.error('Error toggling discussion upvote:', error);
+        }
+    };
+
+    const handleToggleUpvoteComment = async (discussionId, commentIndex) => {
+        try {
+            const username = sessionStorage.getItem('username');
+            await axios.post('/api/discussions/comment/upvote', { discussionId, commentIndex, username });
+
+            setDiscussions((prev) =>
+                prev.map((discussion) =>
+                    discussion.id === discussionId
+                        ? {
+                              ...discussion,
+                              comments: discussion.comments.map((comment, index) =>
+                                  index === commentIndex
+                                      ? {
+                                            ...comment,
+                                            upvotes: comment.upvotedBy?.includes(username)
+                                                ? comment.upvotes - 1
+                                                : comment.upvotes + 1,
+                                            upvotedBy: comment.upvotedBy?.includes(username)
+                                                ? comment.upvotedBy.filter((user) => user !== username)
+                                                : [...(comment.upvotedBy || []), username],
+                                        }
+                                      : comment
+                              ),
+                          }
+                        : discussion
+                )
+            );
+        } catch (error) {
+            console.error('Error toggling comment upvote:', error);
+        }
+    };
+
+    const handleAddComment = async (discussionId, comment) => {
+        if (!comment.trim()) {
+            alert('Comment cannot be empty.');
+            return;
+        }
+
+        try {
+            const username = sessionStorage.getItem('username');
+            await axios.post('/api/discussions/comment', { discussionId, username, comment });
+            setDiscussions((prev) =>
+                prev.map((d) =>
+                    d.id === discussionId
+                        ? {
+                              ...d,
+                              comments: [
+                                  ...d.comments,
+                                  { username, comment, upvotes: 0, upvotedBy: [] },
+                              ],
+                          }
+                        : d
+                )
+            );
+        } catch (error) {
+            console.error('Error adding comment:', error);
+            alert('Failed to add comment.');
         }
     };
 
@@ -340,6 +454,74 @@ const ProjectForm = ({ projectData = null, onSubmit }) => {
                             </tbody>
                         </table>
                     )}
+                </div>
+            )}
+
+            {/* Discussions Section */}
+            {projectData && (
+                <div className={styles.discussionsSection}>
+                    <h3 className={styles.requirementsTitle}>Discussions</h3>
+                    <div>
+                        <h4>Start a New Discussion</h4>
+                        <input
+                            type="text"
+                            placeholder="Title"
+                            value={newDiscussion.title}
+                            onChange={(e) =>
+                                setNewDiscussion({ ...newDiscussion, title: e.target.value })
+                            }
+                            className={styles.inputField}
+                        />
+                        <textarea
+                            placeholder="Content"
+                            value={newDiscussion.content}
+                            onChange={(e) =>
+                                setNewDiscussion({ ...newDiscussion, content: e.target.value })
+                            }
+                            className={styles.textArea}
+                        />
+                        <button onClick={handleCreateDiscussion} className={styles.startDiscussionButton}>
+                            Start Discussion
+                        </button>
+                    </div>
+                    {discussions.map((discussion) => (
+                        <div key={discussion.id} className={styles.discussion}>
+                            <h4>{discussion.title}</h4>
+                            <p>{discussion.content}</p>
+                            <button
+                                onClick={() => handleToggleUpvoteDiscussion(discussion.id)}
+                                className={styles.upvoteButton}
+                            >
+                                <FaArrowUp /> Upvote ({discussion.upvotes})
+                            </button>
+                            <div>
+                                <h5>Comments</h5>
+                                {discussion.comments.map((comment, index) => (
+                                    <div key={index} className={styles.comment}>
+                                        <p>
+                                            {comment.username}: {comment.comment} ({comment.upvotes} upvotes)
+                                        </p>
+                                        <button
+                                            onClick={() => handleToggleUpvoteComment(discussion.id, index)}
+                                            className={styles.upvoteButton}
+                                        >
+                                            <FaArrowUp /> Upvote
+                                        </button>
+                                    </div>
+                                ))}
+                                <input
+                                    type="text"
+                                    placeholder="Add a comment"
+                                    onKeyDown={(e) => {
+                                        if (e.key === 'Enter') {
+                                            handleAddComment(discussion.id, e.target.value);
+                                            e.target.value = '';
+                                        }
+                                    }}
+                                />
+                            </div>
+                        </div>
+                    ))}
                 </div>
             )}
         </form>
